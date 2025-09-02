@@ -34,7 +34,7 @@ API 연동: 제공된 REST API 사용 (모든 요청에 x-username 헤더 필수
 │  └─ styles/
 │     └─ main.css
 └─ README.md
-└─ eslintrc.json          # eslint 설정 파일
+├─ eslintrc.json          # eslint 설정 파일
 └─ .prettierrc          # prettier 설정 파일
 
 ```
