@@ -68,6 +68,12 @@
     background-color: #eeeeee;
 }
 
+.sidebar-feature a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
 .myPage {
     font-size: 1.4rem;
     margin-top: 20px;
@@ -199,11 +205,19 @@ textarea {
 .title-div:hover,
 .emptyLi:hover {
     background-color: #eeeeee;
-    /* 원하는 색으로 */
 }
 
 /* on */
-.document-tree li.on {
-    background-color: #424242;
-    /* 활성화된 페이지 색상 */
+.document-tree .title-div.on {
+    background-color: #cecece;
+}
+
+/* toggle 버튼 hover */
+.toggle-btn {
+    transition: background-color 0.15s ease;
+}
+
+.toggle-btn:hover {
+    background-color: #dddddd;
+    border-radius: 2px;
 }

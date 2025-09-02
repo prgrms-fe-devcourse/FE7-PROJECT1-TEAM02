@@ -1,1 +1,1 @@
-// import { navigateTo } from "./router.js"
+import { navigateTo } from "./router.js"

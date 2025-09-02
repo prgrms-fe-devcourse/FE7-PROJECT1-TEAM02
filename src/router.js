@@ -8,6 +8,5 @@ export function navigateTo(page) {
 export function loadContent(page) {
     const contentDiv = document.getElementById("content")
     contentDiv.innerHTML = ""
-
     contentDiv.appendChild(page)
 }
