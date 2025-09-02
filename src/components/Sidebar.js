@@ -64,15 +64,7 @@ async function openDocument(id) {
 function setActiveDocumentLi(id) {
     document.querySelectorAll(".title-div").forEach(div => div.classList.remove("on"))  
     const li = sidebarTree.querySelector(`[data-id='${id}']`)
-    const toggle = li.querySelector(".toggle-btn")
-    const title = li.parentElement(".title-div")
-    console.log(title)
-    /* 좀 더 수정 해야 함 */
-    if (li && (toggle.textContent === "▼")) li.querySelector(".title-div").classList.add("on")
-    else {
-        toggleChildren(title, toggle)
-        li.querySelector(".title-div").classList.add("on")
-    }
+    if (li) li.querySelector(".title-div").classList.add("on")
 }
 
 /* -------------------토글--------------------- */
@@ -148,9 +140,19 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
     addBtn.className = "add-btn" 
     addBtn.addEventListener("click", async (e) => {
         e.stopPropagation() 
-        const newDoc = await createDocument("새 문서", doc.id) 
+        const newDoc = await createDocument("새 문서", doc.id)
         await loadTree(newDoc.id)
-        setActiveDocumentLi(newDoc.id)
+
+        const li = sidebarTree.querySelector(`[data-id='${newDoc.id}']`)
+        if (li) {
+            const parentUl = li.parentElement
+            if (parentUl.tagName === "UL") {
+                parentUl.style.display = "block"
+
+                const toggleBtn = parentUl.previousElementSibling?.querySelector(".toggle-btn")
+                if (toggleBtn) toggleBtn.textContent = "▼"
+            }
+        }
         openDocument(newDoc.id)
     }) 
     btnGroup.appendChild(addBtn) 
