@@ -114,3 +114,9 @@ ol {
     padding: 0;
     margin: 0;
 }
+
+button {
+    border: none;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
+}
