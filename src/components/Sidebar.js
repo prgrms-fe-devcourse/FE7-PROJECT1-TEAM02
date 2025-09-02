@@ -1,15 +1,15 @@
-import { navigateTo } from "../router.js"  
+import { fetchDocuments, fetchDocumentContent, createDocument, deleteDocument } from "../api/documents.js"
+import { navigateTo } from "../router.js" 
 
 /* resize */
 const sidebar = document.querySelector(".sidebar")
 const resizer = document.querySelector(".resizer") 
-const editor = document.querySelector(".editor") 
 
 let isResizing = false 
 
 // 드래그 시작
 resizer.addEventListener("mousedown", (e) => {
-    e.preventDefault()  // 텍스트 선택 방지
+    e.preventDefault()
     isResizing = true 
     document.body.style.cursor = "col-resize" 
 
@@ -43,41 +43,6 @@ document.addEventListener("mouseup", () => {
 /* ------------------------------------------------------------ */
 const sidebarTree = document.querySelector(".document-tree")
 const createRootBtn = document.getElementById("create-root-btn")
-const username = "nygkshpdh" // 사용자명
-
-/* -------------------------------------------- */
-/*    1. API                             */
-/* -------------------------------------------- */
-async function fetchDocuments() {
-    const res = await fetch("https://kdt-api.fe.dev-cos.com/documents", {
-        headers: { "x-username": username },
-    })  
-    return await res.json()  
-}
-
-async function createDocument(title, parent = null) {
-    const res = await fetch("https://kdt-api.fe.dev-cos.com/documents", {
-        method: "POST",
-        headers: { "x-username": username, "Content-Type": "application/json" },
-        body: JSON.stringify({ title, parent }),
-    })  
-    return await res.json()  
-}
-
-async function deleteDocument(id) {
-    const res = await fetch(`https://kdt-api.fe.dev-cos.com/documents/${id}`, {
-        method: "DELETE",
-        headers: { "x-username": username },
-    })  
-    return await res.json()  
-}
-
-async function fetchDocumentContent(id) {
-    const res = await fetch(`https://kdt-api.fe.dev-cos.com/documents/${id}`, {
-        headers: { "x-username": username },
-    })  
-    return await res.json()  
-}
 
 /* -----------------문서 열기------------------- */
 async function openDocument(id) {
@@ -88,9 +53,10 @@ async function openDocument(id) {
     titleInput.value = doc.title  
     contentArea.value = doc.content || ""  
 
-    setActiveDocumentLi(id)  
+    const titleHeader = document.querySelector("header .title")
+    titleHeader.textContent = doc.title
 
-    // SPA 방식으로 navigateTo 사용
+    setActiveDocumentLi(id) 
     navigateTo(`document/${id}`)  
 }
 
@@ -98,8 +64,15 @@ async function openDocument(id) {
 function setActiveDocumentLi(id) {
     document.querySelectorAll(".title-div").forEach(div => div.classList.remove("on"))  
     const li = sidebarTree.querySelector(`[data-id='${id}']`)
-    console.log(li)
-    if (li) li.querySelector(".title-div").classList.add("on")
+    const toggle = li.querySelector(".toggle-btn")
+    const title = li.parentElement(".title-div")
+    console.log(title)
+    /* 좀 더 수정 해야 함 */
+    if (li && (toggle.textContent === "▼")) li.querySelector(".title-div").classList.add("on")
+    else {
+        toggleChildren(title, toggle)
+        li.querySelector(".title-div").classList.add("on")
+    }
 }
 
 /* -------------------토글--------------------- */
@@ -130,7 +103,9 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
     titleDiv.style.justifyContent = "space-between" 
     titleDiv.style.padding = "5px 6px" 
     titleDiv.style.width = "100%" 
-    titleDiv.addEventListener("click", () => openDocument(doc.id))
+    titleDiv.addEventListener("click", () => {
+        openDocument(doc.id)
+    })
     li.appendChild(titleDiv) 
 
     const titleGroup = document.createElement("div") 
@@ -174,7 +149,9 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
     addBtn.addEventListener("click", async (e) => {
         e.stopPropagation() 
         const newDoc = await createDocument("새 문서", doc.id) 
-        await loadTree(newDoc) 
+        await loadTree(newDoc.id)
+        setActiveDocumentLi(newDoc.id)
+        openDocument(newDoc.id)
     }) 
     btnGroup.appendChild(addBtn) 
 
@@ -188,6 +165,7 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
         if (!confirm("정말 삭제하시겠습니까?")) return  
         else {
             await deleteDocument(doc.id) 
+            
         }
         loadTree() 
     }) 
@@ -231,7 +209,8 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
 /* -------------------------------------------- */
 createRootBtn.addEventListener("click", async () => {
     const newDoc = await createDocument("새 문서", null)  
-    await loadTree(newDoc.id)  
+    await loadTree(newDoc.id)
+    openDocument(newDoc.id)
 })  
 
 /* -------------------------------------------- */
@@ -243,4 +222,4 @@ async function loadTree(targetDocId = null) {
     if (targetDocId) setActiveDocumentLi(targetDocId)
 }
 
-loadTree() 
+loadTree()
