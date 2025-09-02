@@ -7,7 +7,7 @@ function render() {
 
     if (pathname === "/") {
         $editorContent.textContent = "홈"
-    } else if (path.startsWith("/documents/")) {
+    } else if (pathname.startsWith("/documents/")) {
         $editorContent.textContent = "문서"
     }
 }
