@@ -16,7 +16,11 @@ SPA 라우팅: History API로 /documents/:id 진입 시 해당 문서 로딩
 
 API 연동: 제공된 REST API 사용 (모든 요청에 x-username 헤더 필수)
 
-
+# 실행 방법
+```
+npm install             # 의존성 설치
+npm run dev             # live-server index.html entry로 실행
+```
 
 # 폴더 구조
 ```
@@ -33,7 +37,7 @@ API 연동: 제공된 REST API 사용 (모든 요청에 x-username 헤더 필수
 │  │  ├─ debounce.js      # 디바운스 유틸(자동 저장용)
 │  └─ styles/
 │     └─ main.css
-└─ README.md
+├─ README.md
 ├─ eslintrc.json          # eslint 설정 파일
 └─ .prettierrc          # prettier 설정 파일
 
