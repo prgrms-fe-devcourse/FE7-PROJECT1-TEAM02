@@ -7,7 +7,6 @@ export function navigateTo(page) {
 // 페이지 콘텐츠 로드
 export function loadContent(page) {
     const contentDiv = document.getElementById("content")
-    contentDiv.innerHTML = ""
-
+    contentDiv.innerHTML = "111"
     contentDiv.appendChild(page)
 }
