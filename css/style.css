@@ -1,0 +1,156 @@
+.app {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 사이드바 */
+.sidebar {
+    width: 250px;
+    /* 최소 사이즈 제한 */
+    min-width: 245px;
+    /* 최대 사이즈 제한 */
+    max-width: 475px;
+    /* 창 최대 높이 */
+    height: 100vh;
+    max-height: 100%;
+    background: #f7f7f7;
+    border-right: 1px solid #ddd;
+    padding: 10px 10px;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.sidebar-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.create-root-btn {
+    background: #bbbbbb;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.create-root-btn:hover {
+    background: #818181
+}
+
+.sidebar-features {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #777777
+}
+
+.sidebar-feature {
+    display: flex;
+}
+
+.sidebar-feature {
+    padding: 3px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 3px;
+}
+
+.sidebar-feature:hover {
+    background-color: #eeeeee;
+}
+
+/* 드래그 핸들 */
+.resizer {
+    width: 5px;
+    cursor: col-resize;
+    background: transparent;
+}
+
+.resizer:hover {
+    background: #ddd;
+}
+
+/* 편집기 */
+main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+main header {
+    width: 99.6%;
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main header .title {
+    font-size: 2rem;
+    margin-left: 20px;
+    font-weight: 600;
+}
+
+.save-status {
+    opacity: 0.9;
+    font-size: 2rem;
+    color: #28a745;
+    min-width: 90px;
+}
+
+.editor {
+    width: 60%;
+    height: 100%;
+    margin: 200px auto;
+    overflow-y: auto;
+}
+
+.editor-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+input,
+textarea {
+    font-family: 'Pretendard', sans-serif;
+    outline: none;
+}
+
+.document-title {
+    width: 100%;
+    height: 70px;
+    font-size: 5rem;
+    font-weight: 700;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.document-title::placeholder {
+    color: #e4e4e4;
+}
+
+.editor-content {
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+    font-size: 1.6rem;
+    font-weight: 200;
+    border: none;
+    border-radius: 4px;
+    resize: none;
+}
+
+.editor-content::placeholder {
+    color: #757575;
+}

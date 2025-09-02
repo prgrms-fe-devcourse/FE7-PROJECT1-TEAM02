@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notion Clone</title>
+    <!-- 노션은 새 페이지 제목이 타이틀로 들어감 -->
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- 사이드바 -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2 class="sidebar-title">전공무관</h2>
+          <button id="create-root-btn" class="create-root-btn">+</button>
+        </div>
+        <div class="sidebar-features">
+          <div class="sidebar-feature">
+            <div>검색</div>
+          </div>
+          <div class="sidebar-feature">
+            <a href="/notionClone/index.html">홈</a>
+          </div>
+        </div>
+        <ul class="document-tree"></ul>
+      </aside>
+
+      <!-- 사이드바 사이즈 조절 -->
+      <div class="resizer"></div>
+
+      <!-- 편집기 영역 -->
+      <main>
+        <header>
+          <div class="title">
+            문서 title
+            <!-- 문서 title => 여기서도 클릭하면 수정 가능하도록 추가 예정 -->
+          </div>
+          <span class="save-status"
+            >저장 완료<!-- 저장 상태 나오도록 추가 예정 --></span
+          >
+        </header>
+        <div class="editor">
+          <div class="editor-header">
+            <input
+              type="text"
+              class="document-title"
+              name="title"
+              placeholder="문서 제목"
+            />
+          </div>
+          <div class="editor-content-wrapper">
+            <textarea
+              class="editor-content"
+              placeholder="내용을 입력하세요..."
+            ></textarea>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="./js/script.js"></script>
+  </body>
+</html>
