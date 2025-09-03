@@ -21,7 +21,7 @@ export class Page {
         this.pageHeaderUser = new Dom(
             "div",
             "page-header_user",
-            "전공 무관 페이지",
+            "전공무관 페이지",
         )
         const lockSvg = `<svg xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
