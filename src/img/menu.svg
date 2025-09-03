@@ -1,6 +1,7 @@
-<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="800" height="800" fill="white"/>
-<path d="M140 365.514H660V434.486H140V365.514Z" fill="#32302C"/>
-<path d="M140 155H660V223.972H140V155Z" fill="#32302C"/>
-<path d="M140 576.028H660V645H140V576.028Z" fill="#32302C"/>
+<!-- ellipsisSmall.svg -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     aria-hidden="true" role="graphics-symbol"
+     viewBox="0 0 16 16" width="16" height="16"
+     fill="rgba(71, 70, 68, 0.6)">
+  <path d="M3.2 6.725a1.275 1.275 0 1 0 0 2.55 1.275 1.275 0 0 0 0-2.55m4.8 0a1.275 1.275 0 1 0 0 2.55 1.275 1.275 0 0 0 0-2.55m4.8 0a1.275 1.275 0 1 0 0 2.55 1.275 1.275 0 0 0 0-2.55"/>
 </svg>

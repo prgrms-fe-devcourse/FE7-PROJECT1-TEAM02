@@ -7,7 +7,7 @@
 /* 사이드바 오픈 버튼 */
 .open-btn {
     display: none;
-    background: url(/src/img/menu.svg) no-repeat center/cover;
+    background: url(/src/img/sidemenu.svg) no-repeat center/cover;
     width: 30px;
     height: 30px;
     margin: 10px;
