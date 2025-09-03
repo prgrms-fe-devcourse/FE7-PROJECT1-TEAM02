@@ -258,6 +258,7 @@ textarea {
 /* toggle 버튼 hover */
 .toggle-btn {
     transition: all 0.15s ease;
+    background: url(../img/toggle.svg) no-repeat center/cover;
 }
 
 .toggle-btn:hover {
