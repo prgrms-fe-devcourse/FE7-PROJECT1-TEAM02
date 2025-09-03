@@ -4,6 +4,20 @@
     overflow: hidden;
 }
 
+/* 사이드바 오픈 버튼 */
+.open-btn {
+    display: none;
+    background: url(/src/img/menu.svg) no-repeat center/cover;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+}
+
+.open-btn:hover {
+    background: url(/src/img/arrowopen.svg) no-repeat center/cover;
+    transition: all 0.2s;
+}
+
 /* 사이드바 */
 .sidebar {
     width: 250px;
@@ -23,7 +37,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: 10px;
+    padding-right: 0;
 }
 
 .sidebar-title {
@@ -32,7 +47,8 @@
     color: #4b4b4b
 }
 
-.create-root-btn {
+.create-root-btn,
+.hide-btn {
     background: #818181;
     border: none;
     color: #fff;
@@ -40,11 +56,21 @@
     padding: 0.3rem 0.6rem;
     cursor: pointer;
     font-size: 0.9rem;
+    width: 28px;
+    height: 28px;
 }
 
-.create-root-btn:hover {
-    background: #bbb;
-    color: #353535;
+.create-root-btn {
+    background: url(/src/img/headercreate.svg) no-repeat center/cover;
+}
+
+.create-root-btn:hover,
+.hide-btn:hover {
+    background-color: #eeeeee;
+}
+
+.hide-btn {
+    background: url(/src/img/arrowhide.svg) no-repeat center/cover;
 }
 
 .sidebar-features {
@@ -54,6 +80,7 @@
 }
 
 .sidebar-feature {
+    position: relative;
     display: flex;
 }
 
@@ -61,17 +88,37 @@
     padding: 3px 10px;
     cursor: pointer;
     border-radius: 5px;
-    margin-bottom: 3px;
+    margin-bottom: 6px;
 }
 
 .sidebar-feature:hover {
     background-color: #eeeeee;
 }
 
-.sidebar-feature a {
+.sidebar-feature:nth-child(1)::before {
+    content: "";
     display: inline-block;
+    width: 21px;
+    height: 21px;
+    margin-right: 6px;
+    background: url("/src/img/search.svg") no-repeat center/cover;
+}
+
+/* 두 번째 sidebar-feature (홈 아이콘) */
+.sidebar-feature:nth-child(2)::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    background: url("/src/img/home.svg") no-repeat center/cover;
+}
+
+.sidebar-feature a {
+    display: block;
     width: 100%;
     height: 100%;
+    padding-left: 27px;
 }
 
 .myPage {
@@ -164,13 +211,17 @@ textarea {
 
 /* delete btn */
 .delete-btn {
-    background: url(/src/img/delete.png) no-repeat center/cover;
+    background: url(/src/img/delete.svg) no-repeat center/cover;
+}
+
+.add-btn {
+    background: url(/src/img/plus.svg) no-repeat center/cover;
 }
 
 .delete-btn:hover,
 .add-btn:hover {
     opacity: 0.8;
-    background-color: #a0a0a0;
+    background-color: #bebebe;
     border-radius: 2px;
 }
 
@@ -206,7 +257,7 @@ textarea {
 
 /* toggle 버튼 hover */
 .toggle-btn {
-    transition: background-color 0.15s ease;
+    transition: all 0.15s ease;
 }
 
 .toggle-btn:hover {

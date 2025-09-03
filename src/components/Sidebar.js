@@ -6,10 +6,26 @@ import {
 } from "../api/documents.js"
 import { navigateTo } from "../router.js"
 
-/* resize */
+/* sidebar hide */
 const sidebar = document.querySelector(".sidebar")
+const openBtn = document.querySelector(".open-btn")
 const resizer = document.querySelector(".resizer")
+const hideBtn = document.querySelector(".hide-btn")
+hideBtn.addEventListener("click", (e) => {
+    e.preventDefault()
+    sidebar.style.display = "none"
+    resizer.style.display = "none"
+    openBtn.style.display = "block"
+})
 
+openBtn.addEventListener("click", (e) => {
+    e.preventDefault()
+    sidebar.style.display = "block"
+    resizer.style.display = "block"
+    openBtn.style.display = "none"
+})
+
+/* resize */
 let isResizing = false
 
 // 드래그 시작
@@ -70,7 +86,7 @@ function toggleChildren(ul, toggleBtn) {
     const isClosed = ul.style.display === "none"
     ul.style.display = isClosed ? "block" : "none"
     toggleBtn.style.fontSize = isClosed ? "1rem" : "0.8rem"
-    toggleBtn.textContent = isClosed ? "▼" : "▶"
+    toggleBtn.style.backgroundImg = isClosed ? "url(/src/img/toggle.svg)" : "▶"
 }
 
 /* -------------------------------------------- */
@@ -114,7 +130,10 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
         const toggleBtn = document.createElement("button")
         toggleBtn.className = "toggle-btn"
         toggleBtn.type = "button"
-        toggleBtn.textContent = "▶"
+        toggleBtn.style.backgroundImage = "url(/src/img/toggle.svg)"
+        toggleBtn.style.backgroundRepeat = "no-repeat"
+        toggleBtn.style.backgroundSize = "cover"
+        toggleBtn.style.backgroundPosition = "center"
         toggleBtn.style.marginRight = "6px"
         toggleBtn.style.fontSize = "0.8rem"
         toggleBtn.style.lineHeight = "1"
@@ -133,7 +152,6 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
         btnGroup.style.alignItems = "center"
 
         const addBtn = document.createElement("button")
-        addBtn.textContent = "+"
         addBtn.style.width = "20px"
         addBtn.style.height = "20px"
         addBtn.className = "add-btn"
@@ -197,9 +215,31 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
         }
         li.appendChild(ul)
 
+        // 토글 회선 각 구하기
+        function getRotationDegrees(element) {
+            const style = window.getComputedStyle(element)
+            const transform = style.getPropertyValue("transform")
+
+            if (transform === "none") return 0
+
+            const values = transform.split("(")[1].split(")")[0].split(",")
+            const a = values[0]
+            const b = values[1]
+            const angle = Math.round(Math.atan2(b, a) * (180 / Math.PI))
+
+            return angle < 0 ? angle + 360 : angle
+        }
         // 토글 동작
         toggleBtn.addEventListener("click", (e) => {
             e.stopPropagation()
+
+            let currentAngle = getRotationDegrees(toggleBtn)
+            if (currentAngle === 90) {
+                toggleBtn.style.transform = "rotate(0deg)"
+            } else {
+                toggleBtn.style.transform = "rotate(90deg)"
+            }
+
             toggleChildren(ul, toggleBtn)
         })
 
