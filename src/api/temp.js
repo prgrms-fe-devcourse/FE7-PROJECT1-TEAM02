@@ -26,7 +26,7 @@ export async function getDocument(documentId) {
 export async function updateDocument(id, { title, content }) {
     try {
         const res = await fetch(
-            `https://kdt-api.fe.dev-cos.com/documents/documents/${id}`,
+            `https://kdt-api.fe.dev-cos.com/documents/${id}`,
             {
                 method: "PUT",
                 headers: {

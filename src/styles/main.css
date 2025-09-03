@@ -27,12 +27,13 @@
 }
 
 .sidebar-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 500;
+    color: #4b4b4b
 }
 
 .create-root-btn {
-    background: #bbbbbb;
+    background: #818181;
     border: none;
     color: #fff;
     border-radius: 4px;
@@ -42,7 +43,8 @@
 }
 
 .create-root-btn:hover {
-    background: #818181
+    background: #bbb;
+    color: #353535;
 }
 
 .sidebar-features {
@@ -64,6 +66,19 @@
 
 .sidebar-feature:hover {
     background-color: #eeeeee;
+}
+
+.sidebar-feature a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.myPage {
+    font-size: 1.4rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 3px 10px;
 }
 
 /* 드래그 핸들 */
@@ -145,4 +160,56 @@ textarea {
 
 .editor-content::placeholder {
     color: #757575;
+}
+
+/* delete btn */
+.delete-btn {
+    background: url(/src/img/delete.png) no-repeat center/cover;
+}
+
+.delete-btn:hover,
+.add-btn:hover {
+    opacity: 0.8;
+    background-color: #a0a0a0;
+    border-radius: 2px;
+}
+
+/* 트리 기본 */
+.document-tree,
+.document-tree ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* 각 행 전체가 hover 대상 */
+.title-div,
+.emptyLi {
+    transition: background-color 0.15s ease;
+    cursor: default;
+    width: 100%;
+    padding: 3px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 3px;
+}
+
+.title-div:hover,
+.emptyLi:hover {
+    background-color: #eeeeee;
+}
+
+/* on */
+.document-tree .title-div.on {
+    background-color: #cecece;
+}
+
+/* toggle 버튼 hover */
+.toggle-btn {
+    transition: background-color 0.15s ease;
+}
+
+.toggle-btn:hover {
+    background-color: #dddddd;
+    border-radius: 2px;
 }
