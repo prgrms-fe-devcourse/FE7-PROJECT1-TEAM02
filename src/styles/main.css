@@ -7,14 +7,14 @@
 /* 사이드바 오픈 버튼 */
 .open-btn {
     display: none;
-    background: url(/src/img/sidemenu.svg) no-repeat center/cover;
+    background: url(../img/sidemenu.svg) no-repeat center/cover;
     width: 30px;
     height: 30px;
     margin: 10px;
 }
 
 .open-btn:hover {
-    background: url(/src/img/arrowopen.svg) no-repeat center/cover;
+    background: url(../img/arrowopen.svg) no-repeat center/cover;
     transition: all 0.2s;
 }
 
@@ -61,7 +61,7 @@
 }
 
 .create-root-btn {
-    background: url(/src/img/headercreate.svg) no-repeat center/cover;
+    background: url(../img/headercreate.svg) no-repeat center/cover;
 }
 
 .create-root-btn:hover,
@@ -70,7 +70,7 @@
 }
 
 .hide-btn {
-    background: url(/src/img/arrowhide.svg) no-repeat center/cover;
+    background: url(../img/arrowhide.svg) no-repeat center/cover;
 }
 
 .sidebar-features {
@@ -101,7 +101,7 @@
     width: 21px;
     height: 21px;
     margin-right: 6px;
-    background: url("/src/img/search.svg") no-repeat center/cover;
+    background: url(../img/search.svg) no-repeat center/cover;
 }
 
 /* 두 번째 sidebar-feature (홈 아이콘) */
@@ -111,7 +111,7 @@
     position: absolute;
     width: 21px;
     height: 21px;
-    background: url("/src/img/home.svg") no-repeat center/cover;
+    background: url(../img/home.svg) no-repeat center/cover;
 }
 
 .sidebar-feature a {
@@ -211,11 +211,11 @@ textarea {
 
 /* delete btn */
 .delete-btn {
-    background: url(/src/img/delete.svg) no-repeat center/cover;
+    background: url(../img/delete.svg) no-repeat center/cover;
 }
 
 .add-btn {
-    background: url(/src/img/plus.svg) no-repeat center/cover;
+    background: url(../img/plus.svg) no-repeat center/cover;
 }
 
 .delete-btn:hover,

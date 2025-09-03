@@ -129,7 +129,7 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
         const toggleBtn = document.createElement("button")
         toggleBtn.className = "toggle-btn"
         toggleBtn.type = "button"
-        toggleBtn.style.backgroundImage = "url(/src/img/toggle.svg)"
+        toggleBtn.style.backgroundImage = "url(../img/toggle.svg)"
         toggleBtn.style.backgroundRepeat = "no-repeat"
         toggleBtn.style.backgroundSize = "cover"
         toggleBtn.style.backgroundPosition = "center"
