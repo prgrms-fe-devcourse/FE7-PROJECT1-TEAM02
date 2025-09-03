@@ -1,2 +1,2 @@
-import "/src/router.js"
-import "/src/components/Sidebar.js"
+import "./router.js"
+import "./components/Sidebar.js"

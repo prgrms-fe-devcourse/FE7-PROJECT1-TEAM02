@@ -86,7 +86,6 @@ function toggleChildren(ul, toggleBtn) {
     const isClosed = ul.style.display === "none"
     ul.style.display = isClosed ? "block" : "none"
     toggleBtn.style.fontSize = isClosed ? "1rem" : "0.8rem"
-    toggleBtn.style.backgroundImg = isClosed ? "url(/src/img/toggle.svg)" : "▶"
 }
 
 /* -------------------------------------------- */
