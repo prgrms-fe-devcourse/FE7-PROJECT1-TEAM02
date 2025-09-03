@@ -14,8 +14,8 @@
     /* 창 최대 높이 */
     height: 100vh;
     max-height: 100%;
-    background: #F9F8F7;
-    border-right: 1px solid #eeeeec;
+    background: #f7f7f7;
+    border-right: 1px solid #ddd;
     padding: 10px 10px;
 }
 
@@ -99,14 +99,6 @@ main {
     height: 100%;
 }
 
-main header {
-    width: 99.6%;
-    height: 50px;
-    border-bottom: 1px solid #EEEEEC;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
 main header .title {
     font-size: 2rem;

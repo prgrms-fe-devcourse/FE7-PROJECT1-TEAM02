@@ -7,6 +7,7 @@
         <!-- 노션은 새 페이지 제목이 타이틀로 들어감 -->
         <link rel="stylesheet" href="/src/styles/main.css" />
         <link rel="stylesheet" href="/src/styles/common.css" />
+        <link rel="stylesheet" href="/src/styles/editor.css" />
     </head>
     <body>
         <div class="app">
@@ -34,32 +35,7 @@
             <div class="resizer"></div>
 
             <!-- 편집기 영역 -->
-            <main>
-                <header>
-                    <div class="title">
-                        <!-- 문서 title => 여기서도 클릭하면 수정 가능하도록 추가 예정 -->
-                    </div>
-                    <span class="save-status"
-                        >저장 완료<!-- 저장 상태 나오도록 추가 예정 --></span
-                    >
-                </header>
-                <div class="editor">
-                    <div class="editor-header">
-                        <input
-                            type="text"
-                            class="document-title"
-                            name="title"
-                            placeholder="문서 제목"
-                        />
-                    </div>
-                    <div class="editor-content-wrapper">
-                        <textarea
-                            class="editor-content"
-                            placeholder="내용을 입력하세요..."
-                        ></textarea>
-                    </div>
-                </div>
-            </main>
+            <main id="content"></main>
         </div>
 
         <script type="module" src="/src/index.js"></script>
