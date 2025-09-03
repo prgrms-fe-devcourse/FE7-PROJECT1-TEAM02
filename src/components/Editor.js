@@ -50,6 +50,7 @@ export class Page {
 
         this.pageMain = new Dom("div", "page-main")
         this.pageTitle = new Dom("input", "page-title")
+        this.pageTitle.el.setAttribute("id", "page-title")
         this.pageTitle.el.setAttribute("placeholder", "새 페이지")
         this._applyTitleSync = () => {
             const t = (this.pageTitle.el.value || "").trim()
@@ -107,6 +108,9 @@ export class Page {
 
         this.main.append(this.page)
         this.pageTitle.el.addEventListener("input", this._applyTitleSync)
+        this.pageHeaderTitle.el.addEventListener("click", () =>
+            this._toggleTitleModal(),
+        )
     }
 
     setEditedAt(date) {
@@ -137,11 +141,103 @@ export class Page {
         }
     }
 
+    _toggleTitleModal() {
+        if (this._titleModalOpen) {
+            this._closeTitleModal()
+        } else {
+            this._openTitleModal()
+        }
+    }
+    _openTitleModal() {
+        this._titleModalOpen = true
+
+        this._modal = document.createElement("div")
+        this._modal.className = "title-modal"
+
+        const pageSvg = `<svg xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        width="16.2"
+        height="16.2"
+        fill="rgba(71, 70, 68, 0.6)"
+        aria-hidden="true"
+        role="img">
+        <path d="M4.35645 15.4678H11.6367C13.0996 15.4678 13.8584 14.6953 13.8584 13.2256V7.02539C13.8584 6.0752 13.7354 5.6377 13.1406 5.03613L9.55176 1.38574C8.97754 0.804688 8.50586 0.667969 7.65137 0.667969H4.35645C2.89355 0.667969 2.13477 1.44043 2.13477 2.91016V13.2256C2.13477 14.7021 2.89355 15.4678 4.35645 15.4678ZM4.46582 14.1279C3.80273 14.1279 3.47461 13.7793 3.47461 13.1436V2.99219C3.47461 2.36328 3.80273 2.00781 4.46582 2.00781H7.37793V5.75391C7.37793 6.73145 7.86328 7.20312 8.83398 7.20312H12.5186V13.1436C12.5186 13.7793 12.1836 14.1279 11.5205 14.1279H4.46582ZM8.95703 6.02734C8.67676 6.02734 8.56055 5.9043 8.56055 5.62402V2.19238L12.334 6.02734H8.95703Z"/>
+        </svg>`
+
+        this._modal.innerHTML = `
+            <div class="title-modal_icon">${pageSvg}</div>
+            <div class="title-modal_input" contenteditable="true"></div>
+        `
+
+        const inputEl = this._modal.querySelector(".title-modal_input")
+        const currentTitle = (this.pageTitle.el.value || "").trim()
+
+        inputEl.textContent = ""
+        inputEl.setAttribute("data-placeholder", currentTitle || "제목 없음")
+        inputEl.focus()
+        this.pageHeaderTitle.el.insertAdjacentElement("afterend", this._modal)
+
+        this._commitTitleFromModal = () => {
+            const next = inputEl.textContent.trim()
+            this.pageTitle.el.value = next
+            this._applyTitleSync()
+
+            this.pageTitle.el.dispatchEvent(
+                new Event("input", { bubbles: true }),
+            )
+        }
+
+        this._handleModalKeydown = (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault()
+                this._commitTitleFromModal()
+                this._closeTitleModal()
+            } else if (e.key === "Escape") {
+                this._closeTitleModal()
+            }
+        }
+        inputEl.addEventListener("keydown", this._handleModalKeydown)
+
+        this._handleModalBlur = (e) => {
+            this._commitTitleFromModal()
+            this._closeTitleModal()
+        }
+        inputEl.addEventListener("blur", this._handleModalBlur)
+
+        this._handleOutsideClick = (evt) => {
+            if (
+                !this._modal.contains(evt.target) &&
+                !this.pageHeaderTitle.el.contains(evt.target)
+            ) {
+                this._closeTitleModal()
+            }
+        }
+
+        this._handleEsc = (evt) => {
+            if (evt.key === "Escape") this._closeTitleModal()
+        }
+
+        setTimeout(() => {
+            document.addEventListener("mousedown", this._handleOutsideClick)
+            document.addEventListener("keydown", this._handleEsc)
+        }, 0)
+    }
+
+    _closeTitleModal() {
+        this._titleModalOpen = false
+        document.removeEventListener("mousedown", this._handleOutsideClick)
+        document.removeEventListener("keydown", this._handleEsc)
+
+        if (this._modal?.parentNode)
+            this._modal.parentNode.removeChild(this._modal)
+        this._modal = null
+    }
+
     update(data = {}) {
         const { title, content, updated_at } = data
         if (typeof title !== "undefined") {
             this.pageTitle.el.value = title ?? ""
-            this._applyTitleSync() 
+            this._applyTitleSync()
         }
         if (typeof content !== "undefined") {
             this.introduce.el.innerHTML = content ?? ""
