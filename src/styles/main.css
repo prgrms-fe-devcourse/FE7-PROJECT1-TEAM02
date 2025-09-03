@@ -20,7 +20,8 @@
 
 /* 사이드바 */
 .sidebar {
-    width: 250px;
+    position: relative;
+    width: 270px;
     /* 최소 사이즈 제한 */
     min-width: 245px;
     /* 최대 사이즈 제한 */
