@@ -48,16 +48,8 @@ const createRootBtn = document.getElementById("create-root-btn")
 async function openDocument(id) {
     const doc = await fetchDocumentContent(id)  
 
-    const titleInput = document.querySelector(".document-title")  
-    const contentArea = document.querySelector(".editor-content")  
-    titleInput.value = doc.title  
-    contentArea.value = doc.content || ""  
-
-    const titleHeader = document.querySelector("header .title")
-    titleHeader.textContent = doc.title
-
-    setActiveDocumentLi(id) 
-    navigateTo(`document/${id}`)  
+    console.log(doc);
+    navigateTo(`/documents/${id}`)  
 }
 
 /* --------------활성 문서 표시----------------- */
