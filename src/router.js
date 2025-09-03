@@ -20,9 +20,6 @@ function matchRoute(path) {
 const routes = {
   "/": () => {
     $content.innerHTML = "";
-    const h1 = document.createElement("h1");
-    h1.textContent = "홈";
-    $content.appendChild(h1);
   },
   "/documents": () => {
     $content.innerHTML = "<h1>문서 목록</h1>";
@@ -66,12 +63,3 @@ window.addEventListener("popstate", (e) => {
 window.addEventListener("DOMContentLoaded", () => {
   loadContent(location.pathname);
 });
-
-// 버튼 예시
-const a = document.querySelector("#document");
-if (a) {
-  a.addEventListener("click", (e) => {
-    e.preventDefault();
-    navigateTo("/documents/155905"); // 특정 id로 이동
-  });
-}
