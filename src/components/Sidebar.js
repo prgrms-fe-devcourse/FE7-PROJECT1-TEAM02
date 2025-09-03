@@ -226,3 +226,18 @@ async function loadTree(targetDocId = null) {
 }
 
 loadTree()
+
+window.addEventListener("doc:title-change", (e) => {
+    const { id, title } = e.detail
+    const items = document.querySelectorAll(`li[data-id="${id}"]`)
+
+    items.forEach((li) => {
+        const titleSpan = li.querySelector(
+            ".title-div > div:first-child .toggle-btn + span",
+        )
+        if (titleSpan) {
+            titleSpan.textContent = title || "제목"
+            titleSpan.setAttribute("title", title || "제목")
+        }
+    })
+})
