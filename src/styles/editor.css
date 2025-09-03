@@ -23,6 +23,33 @@
         background-color: rgba(42, 28, 0, 0.07);
     }
 }
+
+.page-header_menus {
+    display: flex;
+    align-items: center;
+}
+
+.page-header_user {
+    user-select: none;
+    transition: background 20ms ease-in;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 24px;
+    padding-inline: 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-size: 14px;
+    flex-shrink: 1;
+    line-height: 1.2;
+    min-width: 0px;
+    color: rgba(70, 68, 64, 0.45);
+    &:hover {
+        background-color: rgba(42, 28, 0, 0.07);
+    }
+}
+
 .page-header {
     width: 100%;
     margin: 0;
@@ -35,6 +62,30 @@
     display: flex;
     align-items: center;
     padding-inline: 12px 10px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.page-header_edittime {
+    user-select: none;
+    transition: background 20ms ease-in;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 24px;
+    padding-inline: 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-size: 14px;
+    flex-shrink: 1;
+    line-height: 1.2;
+    min-width: 0px;
+    color: rgba(70, 68, 64, 0.45);
+    &:hover {
+        background-color: rgba(42, 28, 0, 0.07);
+    }
 }
 
 .page-main {
@@ -53,18 +104,20 @@
 
 /* 모바일 (480px 이하) */
 @media screen and (max-width: 720px) {
-  .page-main {
-    width: 100%;
-    flex-direction: column;
-    padding: 12px;
-    height: auto;
-  }
+    .page-main {
+        width: 100%;
+        flex-direction: column;
+        padding: 12px;
+        height: auto;
+    }
 }
 
 .page-icon {
     opacity: 0;
     visibility: hidden;
     transition: opacity 1s ease;
+    display: flex;
+    gap: 4px;
 }
 
 .page-menus:hover .page-icon {
@@ -74,6 +127,12 @@
 
 .page-icon:hover {
     background-color: rgba(42, 28, 0, 0.07);
+}
+
+.page-icon.has-icon {
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: inherit !important;
 }
 
 .page-icon {
