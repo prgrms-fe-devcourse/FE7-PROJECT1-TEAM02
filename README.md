@@ -29,12 +29,14 @@ npm run dev             # live-server index.html entry로 실행
 │  ├─ index.js            # 앱 초기화
 │  ├─ router.js           # History API 라우터
 │  ├─ api/
+│  │  ├─ temp.js          # 설명 작성 예정
 │  │  └─ documents.js     # fetch 래퍼 및 문서 API 함수들
 │  ├─ components/
 │  │  ├─ Sidebar.js       # 트리 사이드바(루트/하위 문서 렌더)
 │  │  └─ Editor.js        # 문서 편집기(Textarea or contentEditable)
 │  ├─ utils/
 │  │  ├─ debounce.js      # 디바운스 유틸(자동 저장용)
+│  │  └─ time.js          # 설명 작성 예정
 │  └─ styles/
 │     └─ main.css
 ├─ README.md
@@ -49,7 +51,7 @@ src/router: URL ↔ 화면 동기화만. 컴포넌트 직접 참조 금지.
 
 src/components: 화면 조각. 입출력(파라미터/이벤트) 명확히.
 
-src/styles: reset/normalize 후 공통 유틸과 레이아웃 우선.
+src/styles: 공통 유틸과 레이아웃 우선.
 
 
 

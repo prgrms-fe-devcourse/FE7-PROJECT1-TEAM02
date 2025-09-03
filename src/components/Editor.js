@@ -111,12 +111,34 @@ export class Page {
         this.pageHeaderTitle.el.addEventListener("click", () =>
             this._toggleTitleModal(),
         )
+        this._commitTitleFromModal = () => {
+            const next = inputEl.textContent.trim()
+            this.pageTitle.el.value = next
+            this._applyTitleSync()
+            this.pageTitle.el.dispatchEvent(
+                new Event("input", { bubbles: true }),
+            )
+            if (this._docId)
+                this._emitTitleChange(this._docId, next || "제목 없음")
+        }
+        this.pageTitle.el.addEventListener("input", () => {
+            if (this._docId) {
+                const t = (this.pageTitle.el.value || "").trim() || "제목 없음"
+                this._emitTitleChange(this._docId, t)
+            }
+        })
     }
 
     setEditedAt(date) {
         this._editedAt = date instanceof Date ? date : new Date(date)
         this._refreshEditedTimeLabel()
         this._startEditedTicker()
+    }
+
+    _emitTitleChange(id, title) {
+        window.dispatchEvent(
+            new CustomEvent("doc:title-change", { detail: { id, title } }),
+        )
     }
 
     _refreshEditedTimeLabel() {
@@ -233,6 +255,12 @@ export class Page {
         this._modal = null
     }
 
+    _emitTitleChange(id, title) {
+        window.dispatchEvent(
+            new CustomEvent("doc:title-change", { detail: { id, title } }),
+        )
+    }
+
     update(data = {}) {
         const { title, content, updated_at } = data
         if (typeof title !== "undefined") {
@@ -271,7 +299,6 @@ export class Page {
             this.introduce.el.removeEventListener("input", this._contentHandler)
             this._contentHandler = null
         }
-        // (선택) 입력 동기화 리스너 제거
         if (this._applyTitleSync) {
             this.pageTitle.el.removeEventListener("input", this._applyTitleSync)
         }
@@ -282,6 +309,7 @@ export class Page {
 export async function EditPage(containerEl, id, { wait = 700, onChange } = {}) {
     const data = await getDocument(id)
     const page = new Page(containerEl)
+    page._docId = id
     page.update(data)
 
     const debounced = debounce(async ({ title, content }) => {
