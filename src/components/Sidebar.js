@@ -170,7 +170,7 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
                         parentUl.previousElementSibling?.querySelector(
                             ".toggle-btn",
                         )
-                    if (toggleBtn) toggleBtn.textContent = "▼"
+                    if (toggleBtn) toggleBtn.style.transform = "rotate(90deg)"
                 }
             }
             openDocument(newDoc.id)
