@@ -1,5 +1,5 @@
 import { Dom } from "./Dom.js"
-import { getDocument, updateDocument } from "/src/api/temp.js"
+import { getDocument, updateDocument } from "../api/temp.js"
 import { debounce } from "../utils/debounce.js"
 import { formatRelative } from "../utils/time.js"
 export class Page {
