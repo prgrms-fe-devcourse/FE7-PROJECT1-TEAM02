@@ -1,7 +1,8 @@
 import { Dom } from "./Dom.js"
-import { getDocument, updateDocument } from "../api/temp.js"
+import { getDocument, updateDocument } from "../api/documents.js"
 import { debounce } from "../utils/debounce.js"
 import { formatRelative } from "../utils/time.js"
+
 export class Page {
     constructor(containerEl) {
         this.containerEl = containerEl
