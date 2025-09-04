@@ -120,7 +120,7 @@ export class Page {
             if (!a) return
             e.preventDefault()
             const id = a.getAttribute("data-doc-id")
-            this._openDocById(id) // ← 여기서 이동
+            this._openDocById(id) 
         }
         this.pageFooter.append(this.childLinksWrap)
         this.page.append(this.pageMain)
@@ -153,17 +153,12 @@ export class Page {
     _linkifyIntroduceDom(e) {}
 
     setAllDocs(docs = []) {
-        // docs: 루트 배열이 올 수도 있고, 단일 루트 객체가 올 수도 있음
         const roots = Array.isArray(docs) ? docs : [docs]
-
-        // 인덱스 초기화
-        this._docIndex = new Map() // id -> 문서노드
-        this._childrenIndex = new Map() // id -> 자식 배열
+        this._docIndex = new Map()
+        this._childrenIndex = new Map() 
 
         const indexNode = (node) => {
             if (!node || node.id == null) return
-
-            // 정규화(방어): title/content 기본값
             const id = String(node.id)
             const title = (node.title ?? "").toString()
             const children = Array.isArray(node.documents) ? node.documents : []
@@ -173,21 +168,15 @@ export class Page {
                 id,
                 children.map((c) => ({ ...c, id: String(c.id) })),
             )
-
-            // DFS
             for (const child of children) indexNode(child)
         }
 
         for (const r of roots) indexNode(r)
-
-        // 기존 title->id 맵(선택사항)
         this._titleToId = new Map(
             Array.from(this._docIndex.values())
                 .filter((d) => d.title)
                 .map((d) => [d.title.trim(), d.id]),
         )
-
-        // 하위 링크 렌더
         this._renderChildLinks()
     }
 
@@ -300,17 +289,14 @@ export class Page {
     
     async _openDocById(id) {
         try {
-            // URL 갱신 (선택) — 새로고침 없이 주소 표시만 바뀜
             if (window.history && window.history.pushState) {
                 navigateTo(`/documents/${id}`);
                 loadTree(id);
             }
-
-            // 문서 데이터 불러와 현재 인스턴스에 반영
             const data = await getDocument(id)
             this._docId = id
-            this.update(data) // 제목/내용/시간 반영
-            this.introduce.el.focus() // UX: 본문 포커스
+            this.update(data)
+            this.introduce.el.focus()
             window.scrollTo({ top: 0, behavior: "smooth" })
         } catch (e) {
             console.error("문서 열기 실패:", e)
@@ -475,7 +461,7 @@ export async function EditPage(containerEl, id, { wait = 700, onChange } = {}) {
 
     try {
         const docs = await fetchDocuments()
-        page.setAllDocs(docs) // Page 내부에 저장
+        page.setAllDocs(docs) 
     } catch (err) {
         console.error("문서 목록 불러오기 실패:", err)
     }
