@@ -1,7 +1,14 @@
 import { Dom } from "./Dom.js"
-import { getDocument, updateDocument } from "../api/temp.js"
+import {
+    getDocument,
+    updateDocument,
+    fetchDocuments,
+} from "../api/documents.js"
 import { debounce } from "../utils/debounce.js"
 import { formatRelative } from "../utils/time.js"
+import { navigateTo } from "../router.js"
+import { loadTree } from "./Sidebar.js"
+
 export class Page {
     constructor(containerEl) {
         this.containerEl = containerEl
@@ -17,7 +24,7 @@ export class Page {
         this.pageHeaderMenus = new Dom("div", "page-header_menus")
 
         this.pageHeaderTitle = new Dom("div", "page-header_title", "제목")
-
+        this.pageFooter = new Dom("div", "page-footer")
         this.pageHeaderUser = new Dom(
             "div",
             "page-header_user",
@@ -104,6 +111,18 @@ export class Page {
         this.pageMain.append(this.pageMenus)
         this.pageMain.append(this.pageTitle)
         this.pageMain.append(this.introduce)
+
+        this.pageMain.append(this.pageFooter)
+        
+        this.childLinksWrap = new Dom("div", "page-children")
+        this.childLinksWrap.el.onclick = (e) => {
+            const a = e.target.closest("a.page-children_item")
+            if (!a) return
+            e.preventDefault()
+            const id = a.getAttribute("data-doc-id")
+            this._openDocById(id) // ← 여기서 이동
+        }
+        this.pageFooter.append(this.childLinksWrap)
         this.page.append(this.pageMain)
 
         this.main.append(this.page)
@@ -127,6 +146,49 @@ export class Page {
                 this._emitTitleChange(this._docId, t)
             }
         })
+        this.introduce.el.addEventListener("input", (e) =>
+            this._linkifyIntroduceDom(e),
+        )
+    }
+    _linkifyIntroduceDom(e) {}
+
+    setAllDocs(docs = []) {
+        // docs: 루트 배열이 올 수도 있고, 단일 루트 객체가 올 수도 있음
+        const roots = Array.isArray(docs) ? docs : [docs]
+
+        // 인덱스 초기화
+        this._docIndex = new Map() // id -> 문서노드
+        this._childrenIndex = new Map() // id -> 자식 배열
+
+        const indexNode = (node) => {
+            if (!node || node.id == null) return
+
+            // 정규화(방어): title/content 기본값
+            const id = String(node.id)
+            const title = (node.title ?? "").toString()
+            const children = Array.isArray(node.documents) ? node.documents : []
+
+            this._docIndex.set(id, { ...node, id, title, documents: children })
+            this._childrenIndex.set(
+                id,
+                children.map((c) => ({ ...c, id: String(c.id) })),
+            )
+
+            // DFS
+            for (const child of children) indexNode(child)
+        }
+
+        for (const r of roots) indexNode(r)
+
+        // 기존 title->id 맵(선택사항)
+        this._titleToId = new Map(
+            Array.from(this._docIndex.values())
+                .filter((d) => d.title)
+                .map((d) => [d.title.trim(), d.id]),
+        )
+
+        // 하위 링크 렌더
+        this._renderChildLinks()
     }
 
     setEditedAt(date) {
@@ -170,6 +232,91 @@ export class Page {
             this._openTitleModal()
         }
     }
+    _renderChildLinks() {
+        if (!this.childLinksWrap) return
+        const curId = this._docId != null ? String(this._docId) : null
+        if (!curId) {
+            this.childLinksWrap.el.style.display = "none"
+            this.childLinksWrap.el.innerHTML = ""
+            return
+        }
+
+        const children = this._childrenIndex?.get(curId) || []
+        if (!children.length) {
+            this.childLinksWrap.el.style.display = "none"
+            this.childLinksWrap.el.innerHTML = ""
+            return
+        }
+
+        const lockSvg = `<svg xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      width="16" height="16"
+      fill="rgba(81, 73, 60, 0.32)"
+      aria-hidden="true" role="img">
+    <path d="M6 5.95a4 4 0 1 1 8 0v1.433a2.426 2.426 0 0 1 2.025 2.392v5.4A2.425 2.425 0 0 1 13.6 17.6H6.4a2.425 2.425 0 0 1-2.425-2.425v-5.4c0-1.203.876-2.201 2.025-2.392zm6.75 1.4v-1.4a2.75 2.75 0 1 0-5.5 0v1.4zm-2.2 5.458a1.35 1.35 0 1 0-1.1 0v1.242a.55.55 0 0 0 1.1 0z"/>
+  </svg>`
+
+        const chevronSvg = `<svg xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      width="11"
+      height="11"
+      fill="rgba(81, 73, 60, 0.32)"
+      aria-hidden="true"
+      role="img"
+      class="arrowChevronSingleDownFill">
+    <path d="M9.381 13.619a.875.875 0 0 0 1.238 0l5.4-5.4A.875.875 0 1 0 14.78 6.98L10 11.763 5.219 6.98A.875.875 0 1 0 3.98 8.22z"/>
+  </svg>`
+
+        this.childLinksWrap.el.style.display = "block"
+        this.childLinksWrap.el.innerHTML = `
+  <div class="page-children_header">
+    <span class="icon-left">${lockSvg}</span>
+    <span class="label">하위 문서</span>
+    <span class="icon-right rotated">${chevronSvg}</span>
+  </div>
+  <div class="page-children_list">
+    ${children
+        .map(
+            (c) => `
+      <a href="#" class="page-children_item"
+         data-doc-id="${c.id}"
+         title="${(c.title ?? "").replace(/"/g, "&quot;")}">
+        ${c.title ?? "제목 없음"}
+      </a>
+    `,
+        )
+        .join("")}
+  </div>
+`
+
+        this.childLinksWrap.el.onclick = (e) => {
+            const a = e.target.closest("a.page-children_item")
+            if (!a) return
+            e.preventDefault()
+            const id = a.getAttribute("data-doc-id")
+            this._openDocById(id)
+        }
+    }
+    
+    async _openDocById(id) {
+        try {
+            // URL 갱신 (선택) — 새로고침 없이 주소 표시만 바뀜
+            if (window.history && window.history.pushState) {
+                navigateTo(`/documents/${id}`);
+                loadTree(id);
+            }
+
+            // 문서 데이터 불러와 현재 인스턴스에 반영
+            const data = await getDocument(id)
+            this._docId = id
+            this.update(data) // 제목/내용/시간 반영
+            this.introduce.el.focus() // UX: 본문 포커스
+            window.scrollTo({ top: 0, behavior: "smooth" })
+        } catch (e) {
+            console.error("문서 열기 실패:", e)
+        }
+    }
+
     _openTitleModal() {
         this._titleModalOpen = true
 
@@ -325,6 +472,13 @@ export async function EditPage(containerEl, id, { wait = 700, onChange } = {}) {
     }, wait)
 
     page.bindOnChange(debounced)
+
+    try {
+        const docs = await fetchDocuments()
+        page.setAllDocs(docs) // Page 내부에 저장
+    } catch (err) {
+        console.error("문서 목록 불러오기 실패:", err)
+    }
 
     return {
         page,
