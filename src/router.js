@@ -2,6 +2,8 @@ import { EditPage } from "./components/Editor.js"
 
 const $content = document.getElementById("content")
 
+let BASE_PATH = ""
+
 // 라우팅 처리 함수
 function matchRoute(path) {
     if (path === "/") return routes["/"]
@@ -25,7 +27,7 @@ const routes = {
         $content.innerHTML = "<h1>문서 목록</h1>"
         // 예시: 목록을 클릭하면 특정 id 문서로 이동
         const link = document.createElement("a")
-        link.href = "/documents/123"
+        link.href = `${BASE_PATH}/documents/123`
         link.textContent = "문서 123 보기"
         link.addEventListener("click", (e) => {
             e.preventDefault()
@@ -44,7 +46,7 @@ const routes = {
 }
 
 export function navigateTo(path) {
-    history.pushState({ path }, "", path)
+    history.pushState({ path }, "", `${BASE_PATH}${path}`)
     loadContent(path)
 }
 
@@ -61,5 +63,27 @@ window.addEventListener("popstate", (e) => {
 
 // 첫 로딩
 window.addEventListener("DOMContentLoaded", () => {
-    loadContent(location.pathname)
+    const pathSegments = location.pathname.split("/").filter(Boolean)
+    if (location.hostname.endsWith("github.io") && pathSegments.length > 0) {
+        BASE_PATH = `/${pathSegments[0]}`
+    } else {
+        BASE_PATH = ""
+    }
+
+    let initialBrowserPath = location.pathname
+    let pathForRouter = "/"
+
+    if (initialBrowserPath.startsWith(BASE_PATH)) {
+        pathForRouter = initialBrowserPath.substring(BASE_PATH.length)
+        if (pathForRouter === "") {
+            pathForRouter = "/"
+        }
+    }
+    const restoredPath = history.state?.path
+    const finalPathToLoad =
+        restoredPath && restoredPath.startsWith(BASE_PATH)
+            ? restoredPath.substring(BASE_PATH.length) || "/"
+            : pathForRouter
+
+    loadContent(finalPathToLoad)
 })

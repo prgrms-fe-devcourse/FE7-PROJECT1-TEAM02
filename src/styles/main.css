@@ -7,20 +7,21 @@
 /* 사이드바 오픈 버튼 */
 .open-btn {
     display: none;
-    background: url(/src/img/sidemenu.svg) no-repeat center/cover;
+    background: url(../img/sidemenu.svg) no-repeat center/cover;
     width: 30px;
     height: 30px;
     margin: 10px;
 }
 
 .open-btn:hover {
-    background: url(/src/img/arrowopen.svg) no-repeat center/cover;
+    background: url(../img/arrowopen.svg) no-repeat center/cover;
     transition: all 0.2s;
 }
 
 /* 사이드바 */
 .sidebar {
-    width: 250px;
+    position: relative;
+    width: 270px;
     /* 최소 사이즈 제한 */
     min-width: 245px;
     /* 최대 사이즈 제한 */
@@ -61,7 +62,7 @@
 }
 
 .create-root-btn {
-    background: url(/src/img/headercreate.svg) no-repeat center/cover;
+    background: url(../img/headercreate.svg) no-repeat center/cover;
 }
 
 .create-root-btn:hover,
@@ -70,7 +71,7 @@
 }
 
 .hide-btn {
-    background: url(/src/img/arrowhide.svg) no-repeat center/cover;
+    background: url(../img/arrowhide.svg) no-repeat center/cover;
 }
 
 .sidebar-features {
@@ -101,7 +102,7 @@
     width: 21px;
     height: 21px;
     margin-right: 6px;
-    background: url("/src/img/search.svg") no-repeat center/cover;
+    background: url(../img/search.svg) no-repeat center/cover;
 }
 
 /* 두 번째 sidebar-feature (홈 아이콘) */
@@ -111,7 +112,7 @@
     position: absolute;
     width: 21px;
     height: 21px;
-    background: url("/src/img/home.svg") no-repeat center/cover;
+    background: url(../img/home.svg) no-repeat center/cover;
 }
 
 .sidebar-feature a {
@@ -211,11 +212,11 @@ textarea {
 
 /* delete btn */
 .delete-btn {
-    background: url(/src/img/delete.svg) no-repeat center/cover;
+    background: url(../img/delete.svg) no-repeat center/cover;
 }
 
 .add-btn {
-    background: url(/src/img/plus.svg) no-repeat center/cover;
+    background: url(../img/plus.svg) no-repeat center/cover;
 }
 
 .delete-btn:hover,
@@ -258,9 +259,59 @@ textarea {
 /* toggle 버튼 hover */
 .toggle-btn {
     transition: all 0.15s ease;
+    background: url(../img/toggle.svg) no-repeat center/cover;
 }
 
 .toggle-btn:hover {
     background-color: #dddddd;
     border-radius: 2px;
+}
+
+/* search-popup */
+.search-popup {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    min-width: 500px;
+    max-height: 1000px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+    padding: 5px;
+}
+
+.search-popup input {
+    width: 100%;
+    height: 50px;
+    font-size: 2.4rem;
+    padding: 5px 8px 5px 50px;
+    background: url(../img/search.svg) no-repeat;
+    background-position: 10px center;
+    background-size: 30px 30px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 4px;
+}
+
+.search-popup ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.search-popup li {
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.6rem;
+}
+
+.search-popup li:hover {
+    background-color: #eee;
 }
