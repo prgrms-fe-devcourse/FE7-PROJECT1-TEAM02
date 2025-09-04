@@ -2,8 +2,6 @@ export class Dom {
   constructor(tag, className, content = "") {
     this.el = document.createElement(tag);
     if (className) this.el.className = className;
-
-    // input/textarea 초기값은 value로
     if (tag === "input" || tag === "textarea") {
       if (content) this.el.value = content;
     } else if (content) {
@@ -12,7 +10,7 @@ export class Dom {
   }
 
   append(child) {
-    const node = child && child.el ? child.el : child; // ← Dom 인스턴스면 .el 사용
+    const node = child && child.el ? child.el : child; 
     this.el.append(node);
   }
 
