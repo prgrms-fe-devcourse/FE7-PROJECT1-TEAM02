@@ -214,7 +214,7 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
         toggleBtn.style.lineHeight = "1"
         toggleBtn.style.width = "21px"
         toggleBtn.style.height = "21px"
-        toggleBtn.borderRadius = "4px"
+        toggleBtn.style.borderRadius = "4px"
         titleGroup.appendChild(toggleBtn)
 
         const titleSpan = document.createElement("span")
@@ -343,8 +343,6 @@ async function loadTree(targetDocId = null) {
     if (targetDocId) setActiveDocumentLi(targetDocId)
 }
 
-loadTree()
-
 window.addEventListener("doc:title-change", (e) => {
     const { id, title } = e.detail
     const items = document.querySelectorAll(`li[data-id="${id}"]`)
@@ -359,3 +357,14 @@ window.addEventListener("doc:title-change", (e) => {
         }
     })
 })
+
+const homeBtn = document.querySelector('.sidebar-feature_home');
+
+if (homeBtn) {
+  homeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    navigateTo('/'); 
+  });
+}
+
+loadTree()
