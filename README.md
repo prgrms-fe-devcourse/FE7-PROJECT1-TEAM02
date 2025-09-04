@@ -19,7 +19,7 @@ API 연동: 제공된 REST API 사용 (모든 요청에 x-username 헤더 필수
 # 실행 방법
 ```
 npm install             # 의존성 설치
-npm run dev             # live-server index.html entry로 실행
+npm run dev             # live-server index.html entry로 실행 -> (기존 라이브 서버로도 활용 가능으로 변경)
 ```
 
 # 폴더 구조
@@ -29,16 +29,17 @@ npm run dev             # live-server index.html entry로 실행
 │  ├─ index.js            # 앱 초기화
 │  ├─ router.js           # History API 라우터
 │  ├─ api/
-│  │  ├─ temp.js          # 설명 작성 예정
 │  │  └─ documents.js     # fetch 래퍼 및 문서 API 함수들
 │  ├─ components/
 │  │  ├─ Sidebar.js       # 트리 사이드바(루트/하위 문서 렌더)
 │  │  └─ Editor.js        # 문서 편집기(Textarea or contentEditable)
 │  ├─ utils/
 │  │  ├─ debounce.js      # 디바운스 유틸(자동 저장용)
-│  │  └─ time.js          # 설명 작성 예정
+│  │  └─ time.js          # 편집 시간 변환 유틸
 │  └─ styles/
-│     └─ main.css
+│     ├─ common.css      # 폰트 및 전역 스타일링
+│     ├─ edit.css      # 에디터 전용 스타일랑
+│     └─ main.css        # 레이아웃 스타일링
 ├─ README.md
 ├─ eslintrc.json          # eslint 설정 파일
 └─ .prettierrc          # prettier 설정 파일
@@ -74,9 +75,7 @@ test: 테스트
 
 
 # PR 규칙
-PR 제목: [Feature] ..., [Fix] ..., [Chore] ...
-
-본문 끝에 Closes #이슈번호로 자동 종료 연결
+PR 제목: [feat/edit] ..., [feat/src]  ...
 
 # 기능
 좌측 트리: 루트/하위 문서 렌더, 각 문서 우측 + 로 하위 문서 생성
