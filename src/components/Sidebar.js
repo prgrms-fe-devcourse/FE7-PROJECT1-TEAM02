@@ -86,7 +86,7 @@ function toggleChildren(ul, toggleBtn) {
     const isClosed = ul.style.display === "none"
     ul.style.display = isClosed ? "block" : "none"
     toggleBtn.style.fontSize = isClosed ? "1rem" : "0.8rem"
-    toggleBtn.style.backgroundImg = isClosed ? "url(/src/img/toggle.svg)" : "▶"
+    toggleBtn.style.backgroundImg = isClosed ? "url(https://prgrms-fe-devcourse.github.io/FE7-PROJECT1-TEAM02/src/img/toggle.svg)" : "▶"
 }
 
 /* -------------------------------------------- */
@@ -130,7 +130,7 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
         const toggleBtn = document.createElement("button")
         toggleBtn.className = "toggle-btn"
         toggleBtn.type = "button"
-        toggleBtn.style.backgroundImage = "url(/src/img/toggle.svg)"
+        toggleBtn.style.backgroundImage = "url(https://prgrms-fe-devcourse.github.io/FE7-PROJECT1-TEAM02/src/img/toggle.svg)"
         toggleBtn.style.backgroundRepeat = "no-repeat"
         toggleBtn.style.backgroundSize = "cover"
         toggleBtn.style.backgroundPosition = "center"
