@@ -337,7 +337,7 @@ createRootBtn.addEventListener("click", async () => {
 /* -------------------------------------------- */
 /*   3. 초기 로드                                */
 /* -------------------------------------------- */
-async function loadTree(targetDocId = null) {
+export async function loadTree(targetDocId = null) {
     const documents = await fetchDocuments()
     renderTree(documents)
     if (targetDocId) setActiveDocumentLi(targetDocId)
