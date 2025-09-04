@@ -213,10 +213,12 @@ textarea {
 /* delete btn */
 .delete-btn {
     background: url('https://prgrms-fe-devcourse.github.io/FE7-PROJECT1-TEAM02/src/img/delete.svg') no-repeat center/cover;
+    background-size: 16px 16px;
 }
 
 .add-btn {
     background: url('https://prgrms-fe-devcourse.github.io/FE7-PROJECT1-TEAM02/src/img/plus.svg') no-repeat center/cover;
+    background-size: 16px 16px;
 }
 
 .delete-btn:hover,
@@ -260,6 +262,7 @@ textarea {
 .toggle-btn {
     transition: all 0.15s ease;
     background: url('https://prgrms-fe-devcourse.github.io/FE7-PROJECT1-TEAM02/src/img/toggle.svg') no-repeat center/cover;
+    background-size: 12px 12px;
 }
 
 .toggle-btn:hover {
