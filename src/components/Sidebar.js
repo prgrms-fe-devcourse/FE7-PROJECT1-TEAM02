@@ -214,6 +214,7 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
         toggleBtn.style.lineHeight = "1"
         toggleBtn.style.width = "21px"
         toggleBtn.style.height = "21px"
+        toggleBtn.borderRadius = "4px"
         titleGroup.appendChild(toggleBtn)
 
         const titleSpan = document.createElement("span")
@@ -229,6 +230,7 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
         const addBtn = document.createElement("button")
         addBtn.style.width = "20px"
         addBtn.style.height = "20px"
+        addBtn.style.borderRadius = "4px"
         addBtn.className = "add-btn"
         addBtn.addEventListener("click", async (e) => {
             e.stopPropagation()
@@ -256,6 +258,7 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
         deleteBtn.style.marginLeft = "5px"
         deleteBtn.style.width = "20px"
         deleteBtn.style.height = "20px"
+        deleteBtn.style.borderRadius = "4px"
         deleteBtn.className = "delete-btn"
         deleteBtn.addEventListener("click", async (e) => {
             e.stopPropagation()
