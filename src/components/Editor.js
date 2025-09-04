@@ -1,5 +1,5 @@
 import { Dom } from "./Dom.js"
-import { getDocument, updateDocument } from "/src/api/temp.js"
+import { getDocument, updateDocument } from "../api/temp.js"
 import { debounce } from "../utils/debounce.js"
 import { formatRelative } from "../utils/time.js"
 export class Page {
@@ -21,7 +21,7 @@ export class Page {
         this.pageHeaderUser = new Dom(
             "div",
             "page-header_user",
-            "전공 무관 페이지",
+            "전공무관 페이지",
         )
         const lockSvg = `<svg xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"

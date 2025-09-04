@@ -86,11 +86,90 @@ function toggleChildren(ul, toggleBtn) {
     const isClosed = ul.style.display === "none"
     ul.style.display = isClosed ? "block" : "none"
     toggleBtn.style.fontSize = isClosed ? "1rem" : "0.8rem"
-    toggleBtn.style.backgroundImg = isClosed ? "url(https://prgrms-fe-devcourse.github.io/FE7-PROJECT1-TEAM02/src/img/toggle.svg)" : "▶"
 }
 
+/* -------------------검색--------------------- */
+const searchFeature = document.querySelector(".sidebar-feature.search")
+const searchPopup = document.querySelector(".search-popup")
+
+searchFeature.addEventListener("click", (e) => {
+    e.stopPropagation()
+    searchPopup.style.display =
+        searchPopup.style.display === "block" ? "none" : "block"
+    if (searchPopup.style.display === "block") {
+        searchInput.focus()
+        renderSearchResults(cachedDocuments)
+    }
+})
+
+// 검색 팝업 내부 HTML
+searchPopup.innerHTML = `
+    <input id="search-input" type="text" placeholder="제목 검색..." />
+    <ul class="search-results"></ul>
+`
+
+const searchInput = searchPopup.querySelector("input")
+const searchResults = searchPopup.querySelector(".search-results")
+
+// 문서 데이터 가져오기
+let cachedDocuments = []
+
+async function cacheDocuments() {
+    cachedDocuments = await fetchDocuments()
+}
+
+cacheDocuments()
+
+// 결과 렌더링 함수
+function renderSearchResults(docs, term = "") {
+    searchResults.innerHTML = ""
+
+    const results = []
+
+    function flatten(docs) {
+        for (const doc of docs) {
+            results.push(doc)
+            if (doc.documents) flatten(doc.documents)
+        }
+    }
+
+    flatten(docs)
+
+    const filtered = term
+        ? results.filter((doc) =>
+              doc.title.toLowerCase().includes(term.toLowerCase()),
+          )
+        : results
+
+    filtered.forEach((doc) => {
+        const li = document.createElement("li")
+        li.textContent = doc.title
+        li.dataset.id = doc.id
+        li.addEventListener("click", () => {
+            searchInput.value = doc.title
+            searchPopup.style.display = "none"
+            openDocument(doc.id)
+            setActiveDocumentLi(doc.id)
+        })
+        searchResults.appendChild(li)
+    })
+}
+
+// 입력 시 필터링
+searchInput.addEventListener("input", (e) => {
+    const term = e.target.value.trim()
+    renderSearchResults(cachedDocuments, term)
+})
+
+// 외부 클릭 시 팝업 닫기
+document.addEventListener("mousedown", (e) => {
+    if (!searchPopup.contains(e.target) && !searchFeature.contains(e.target)) {
+        searchPopup.style.display = "none"
+    }
+})
+
 /* -------------------------------------------- */
-/*    2. 트리 렌더링                             */
+/*    1. 트리 렌더링                             */
 /* -------------------------------------------- */
 
 function renderTree(documents, parentElement = sidebarTree, depth = 0) {
@@ -130,10 +209,6 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
         const toggleBtn = document.createElement("button")
         toggleBtn.className = "toggle-btn"
         toggleBtn.type = "button"
-        toggleBtn.style.backgroundImage = "url(https://prgrms-fe-devcourse.github.io/FE7-PROJECT1-TEAM02/src/img/toggle.svg)"
-        toggleBtn.style.backgroundRepeat = "no-repeat"
-        toggleBtn.style.backgroundSize = "cover"
-        toggleBtn.style.backgroundPosition = "center"
         toggleBtn.style.marginRight = "6px"
         toggleBtn.style.fontSize = "0.8rem"
         toggleBtn.style.lineHeight = "1"
@@ -248,7 +323,7 @@ function renderTree(documents, parentElement = sidebarTree, depth = 0) {
 }
 
 /* -------------------------------------------- */
-/*    3. 루트 Document 생성                      */
+/*    2. 루트 Document 생성                      */
 /* -------------------------------------------- */
 createRootBtn.addEventListener("click", async () => {
     const newDoc = await createDocument("새 문서", null)
@@ -257,7 +332,7 @@ createRootBtn.addEventListener("click", async () => {
 })
 
 /* -------------------------------------------- */
-/*   4. 초기 로드                                */
+/*   3. 초기 로드                                */
 /* -------------------------------------------- */
 async function loadTree(targetDocId = null) {
     const documents = await fetchDocuments()

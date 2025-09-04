@@ -3,12 +3,17 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:title" content="Notion Clone" />
+        <meta
+            property="og:description"
+            content="Notion Clone 웹앱으로 쉽게 문서를 관리하세요."
+        />
         <title>Notion Clone</title>
         <!-- 노션은 새 페이지 제목이 타이틀로 들어감 -->
-        <link rel="stylesheet" href="/src/styles/main.css" />
-        <link rel="stylesheet" href="/src/styles/common.css" />
-        <link rel="stylesheet" href="/src/styles/editor.css" />
-        <link rel="icon" href="/src/img/notion.svg" type="image/x-icon" />
+        <link rel="stylesheet" href="./src/styles/main.css" />
+        <link rel="stylesheet" href="./src/styles/common.css" />
+        <link rel="stylesheet" href="./src/styles/editor.css" />
+        <link rel="icon" href="./src/img/notion.svg" type="image/x-icon" />
     </head>
     <body>
         <div class="app">
@@ -26,11 +31,11 @@
                     </div>
                 </div>
                 <div class="sidebar-features">
-                    <div class="sidebar-feature">
+                    <div class="sidebar-feature search">
                         <div>검색</div>
                     </div>
                     <div class="sidebar-feature">
-                        <a href="/">홈</a>
+                        <a href="../">홈</a>
                     </div>
                 </div>
                 <h3 class="myPage">내 페이지</h3>
@@ -43,6 +48,7 @@
             <!-- 편집기 영역 -->
             <main id="content"></main>
         </div>
-        <script type="module" src="/src/index.js"></script>
+        <div class="search-popup"></div>
+        <script type="module" src="./src/index.js"></script>
     </body>
 </html>
