@@ -29,8 +29,8 @@
     /* 창 최대 높이 */
     height: 100vh;
     max-height: 100%;
-    background: #f7f7f7;
-    border-right: 1px solid #ddd;
+    background: #F9F8F7;
+    border-right: 1px solid #eeeeec;
     padding: 10px 10px;
 }
 
@@ -67,7 +67,7 @@
 
 .create-root-btn:hover,
 .hide-btn:hover {
-    background-color: #eeeeee;
+    background-color: rgba(42, 28, 0, 0.07);
 }
 
 .hide-btn {
@@ -93,7 +93,7 @@
 }
 
 .sidebar-feature:hover {
-    background-color: #eeeeee;
+    background-color: rgba(42, 28, 0, 0.07);
 }
 
 .sidebar-feature:nth-child(1)::before {
@@ -213,16 +213,18 @@ textarea {
 /* delete btn */
 .delete-btn {
     background: url('https://prgrms-fe-devcourse.github.io/FE7-PROJECT1-TEAM02/src/img/delete.svg') no-repeat center/cover;
+    background-size: 16px 16px;
 }
 
 .add-btn {
     background: url('https://prgrms-fe-devcourse.github.io/FE7-PROJECT1-TEAM02/src/img/plus.svg') no-repeat center/cover;
+    background-size: 16px 16px;
 }
 
 .delete-btn:hover,
 .add-btn:hover {
     opacity: 0.8;
-    background-color: #bebebe;
+    background-color: rgba(42, 28, 0, 0.07);
     border-radius: 2px;
 }
 
@@ -248,22 +250,23 @@ textarea {
 
 .title-div:hover,
 .emptyLi:hover {
-    background-color: #eeeeee;
+    background-color: rgba(42, 28, 0, 0.07);
 }
 
 /* on */
 .document-tree .title-div.on {
-    background-color: #cecece;
+    background-color: rgba(42, 28, 0, 0.07);
 }
 
 /* toggle 버튼 hover */
 .toggle-btn {
     transition: all 0.15s ease;
     background: url('https://prgrms-fe-devcourse.github.io/FE7-PROJECT1-TEAM02/src/img/toggle.svg') no-repeat center/cover;
+    background-size: 12px 12px;
 }
 
 .toggle-btn:hover {
-    background-color: #dddddd;
+    background-color: rgba(42, 28, 0, 0.07);
     border-radius: 2px;
 }
 
@@ -313,6 +316,7 @@ textarea {
 }
 
 .search-popup li:hover {
+
     background-color: #eee;
 }
 
@@ -335,4 +339,5 @@ textarea {
 
 .darkmode-btn:hover {
     background-color: #7c7c7c;
+    background-color: rgba(42, 28, 0, 0.07);
 }
