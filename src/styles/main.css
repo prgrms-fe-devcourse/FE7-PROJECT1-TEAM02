@@ -315,3 +315,24 @@ textarea {
 .search-popup li:hover {
     background-color: #eee;
 }
+
+/* darkmode-btn */
+.darkmode-container {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.darkmode-btn {
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.darkmode-btn:hover {
+    background-color: #7c7c7c;
+}
