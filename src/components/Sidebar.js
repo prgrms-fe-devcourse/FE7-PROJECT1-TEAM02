@@ -358,6 +358,19 @@ window.addEventListener("doc:title-change", (e) => {
     })
 })
 
+/* 다크 모드 기능 */
+const darkModeBtn = document.getElementById("darkmode-btn")
+
+if (localStorage.getItem("dark-mode") === "true") {
+    document.body.classList.add("dark-mode")
+}
+
+darkModeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode")
+    const isDark = document.body.classList.contains("dark-mode")
+    localStorage.setItem("dark-mode", isDark)
+})
+
 const homeBtn = document.querySelector('.sidebar-feature_home');
 
 if (homeBtn) {
@@ -368,3 +381,4 @@ if (homeBtn) {
 }
 
 loadTree()
+
